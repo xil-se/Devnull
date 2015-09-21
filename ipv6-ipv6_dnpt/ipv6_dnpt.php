@@ -1,6 +1,6 @@
 <?php
 
-
+// Borrowed from http://php.net/manual/en/ref.sockets.php#56061
 function icmpChecksum($data)
 {
     // Add a 0 to the end of the data, if it's an "odd length"
@@ -25,6 +25,8 @@ function icmpChecksum($data)
 
 function dnpt($ext_ip, $ext_prefix, $int_prefix)
 {
+    $debug = false;
+    
     // This is not a complete solution!!!!!!!!!!!!!!!!!!!!!!!!!!
     $ext_prefix = str_replace(":", "", $ext_prefix);
     $int_prefix = str_replace(":", "", $int_prefix);
@@ -35,17 +37,19 @@ function dnpt($ext_ip, $ext_prefix, $int_prefix)
     $ext_c = icmpChecksum(hex2bin($ext_prefix));
     $int_c = icmpChecksum(hex2bin($int_prefix));
 
-    print_r(unpack('n', $int_c));
+    if ($debug) print_r(unpack('n', $int_c));
     $diff = unpack('n', $ext_c)[1] - unpack('n', $int_c)[1] ;
     if ($diff < 0) $diff = 0xffff + $diff;
     $diff = $sauce - $diff;
 
-    print(bin2hex($ext_c));
-    print("\n");
-    print(bin2hex($int_c));
-    print("\n");
-    print(dechex($diff));
-    print("\n");
+    if ($debug) {
+        print(bin2hex($ext_c));
+        print("\n");
+        print(bin2hex($int_c));
+        print("\n");
+        print(dechex($diff));
+        print("\n");
+    }
 
     $out = split(":", $ext_ip);
     $out[4] = dechex($diff);
