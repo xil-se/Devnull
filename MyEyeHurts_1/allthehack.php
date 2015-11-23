@@ -7,15 +7,10 @@
 
 	$pophashes = array();
 
-	$hashes = [
-		"a981edc25c17f332f4d365df496cf290ae2af3b8f37998f7c34cd0a3bfa30a4b",
-		"c32c4c6703a68dba1f12c5615128d88380c28db2adc74aa21c902dbd6407f848",
-		"a7798f9ed51cc8a06649516c12f11e766ec65c1f0eeb2952c7624433a296feaa"
-	];
-
+	$hashes = file("db.txt");
 
 	foreach($hashes as $hash){
-		$json = json_decode(file_get_contents(sprintf($req_url, $hash)), true);
+		$json = json_decode(file_get_contents(sprintf($req_url, trim($hash))), true);
 		$pophashes = array_merge($pophashes, $json["talk_ids"]);
 	}
 
