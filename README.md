@@ -10,4 +10,4 @@ When using DNPT on IPv6 it's not trivial to figure out what the private IP becom
 
 Dont look at the code..
 
-![Dilbert](http://dilbert.com/strip/2013-11-29)
+![Dilbert](http://assets.amuniversal.com/dda7408024b9013138d7001dd8b71c47)
